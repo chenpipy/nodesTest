@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<body>
+    <h1>调用nodejs端口，获取经纬度信息</h1>
+    <p id="ajaxdata"></p>
+    <script>
+        var nodp=document.getElementById('ajaxdata');
+        var nodul=document.createElement('ul');
+        nodp.appendChild(nodul);
+        $.get('/api/tollgate',function (data,status) {
+            for (var i = 0; i < data.length; i++) {
+                var nodli=document.createElement('li')
+                nodli.innerText='经度：'+data[i].longitude+'纬度：'+data[i].latitude;
+                nodul.appendChild(nodli);
+            }
+        });
+    </script>
+</body>
+</html>

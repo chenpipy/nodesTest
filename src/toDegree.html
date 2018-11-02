@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .submitBtn {
+            margin: 0 20px;
+        }
+
+        .form-group {
+            margin: 0 20px
+        }
+    </style>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form id="mainForm">
+    <div class="form-group">
+        <label>excel文件地址：</label>
+        <input type="text" name="fileAddress" class="form-control" placeholder="">
+    </div>
+    <div class="form-group">
+        <label> excel名称：</label>
+        <input type="text" name="fileName" class="form-control" placeholder="">
+    </div>
+    <div class="form-group">
+        <label> 经度所在列名称：</label>
+        <input type="text" name="lonName" class="form-control" placeholder="">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">纬度所在列名称：</label>
+        <input type="text" name="latName" class="form-control" id="exampleInputPassword1" placeholder="">
+    </div>
+
+    <button type="button" class="submitBtn btn btn-primary" name="submitBtn">Submit</button>
+</form>
+</body>
+<script>
+    var $form =$('#mainForm')
+    var submitBtn = $form.find('[name="submitBtn"]')
+    submitBtn.on('click', function (e) {
+        var params={
+            fileAddress:$form.find('[name="fileAddress"]').val(),
+            lonName:$form.find('[name="lonName"]').val(),
+            latName:$form.find('[name="latName"]').val(),
+            fileName:$form.find('[name="fileName"]').val()
+        }
+        console.log(params)
+        $.ajax({
+            type:"post",
+            url:"http://localhost:3000/api/handExcel",
+            data:JSON.stringify(params),
+            contentType: "application/json",
+            success:function (data) {
+                console.log(data)
+            }
+        })
+    })
+</script>
+</html>
